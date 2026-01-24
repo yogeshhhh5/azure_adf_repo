@@ -1,0 +1,9 @@
+{
+	"name": "az-dataFactory2401",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c8209a1b-c0ff-47cf-a2ae-561720140f45",
+		"tenantId": "439c2c23-b036-4d14-b631-292f7a6cc098"
+	}
+}

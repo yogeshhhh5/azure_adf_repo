@@ -1,0 +1,122 @@
+{
+	"name": "Json1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "stage/data/2026-01-20",
+				"fileSystem": "retail-data-stream-cont"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"RetailTxnData": {
+					"type": "object",
+					"properties": {
+						"InvoiceNo": {
+							"type": "integer"
+						},
+						"InvoiceDateTime": {
+							"type": "string"
+						},
+						"StoreNo": {
+							"type": "integer"
+						},
+						"StorePos": {
+							"type": "string"
+						},
+						"StoreCountry": {
+							"type": "string"
+						},
+						"LineItem": {
+							"type": "object",
+							"properties": {
+								"StockCode": {
+									"type": "string"
+								},
+								"Description": {
+									"type": "string"
+								},
+								"Quantity": {
+									"type": "integer"
+								},
+								"UnitPrice": {
+									"type": "number"
+								},
+								"SalePrice": {
+									"type": "number"
+								}
+							}
+						},
+						"Customer": {
+							"type": "object",
+							"properties": {
+								"CustomerID": {
+									"type": "integer"
+								},
+								"EmailId": {
+									"type": "null"
+								},
+								"ContactNo": {
+									"type": "string"
+								},
+								"FirstName": {
+									"type": "string"
+								},
+								"MiddleName": {
+									"type": "string"
+								},
+								"LastName": {
+									"type": "string"
+								},
+								"Address": {
+									"type": "string"
+								},
+								"State": {
+									"type": "string"
+								},
+								"Country": {
+									"type": "string"
+								},
+								"ZipCode": {
+									"type": "integer"
+								}
+							}
+						},
+						"Discount": {
+							"type": "object",
+							"properties": {
+								"DiscountCode": {
+									"type": "string"
+								}
+							}
+						},
+						"Region": {
+							"type": "string"
+						},
+						"SourceTimestamp": {
+							"type": "string"
+						}
+					}
+				},
+				"EventProcessedUtcTime": {
+					"type": "string"
+				},
+				"PartitionId": {
+					"type": "integer"
+				},
+				"EventEnqueuedUtcTime": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
