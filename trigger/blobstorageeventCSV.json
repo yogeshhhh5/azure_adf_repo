@@ -1,0 +1,17 @@
+{
+	"name": "blobstorageeventCSV",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/storage1/blobs/storageTrigger/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/4cf87ecf-0a4d-4d39-8475-40c07a3c4531/resourceGroups/rg_learn/providers/Microsoft.Storage/storageAccounts/yoadlsgen2storage",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

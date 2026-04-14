@@ -1,0 +1,85 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DF_flow",
+						"type": "DatasetReference"
+					},
+					"name": "DFtrasform"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DF_output",
+						"type": "DatasetReference"
+					},
+					"name": "refinedDataa"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectColumns"
+				},
+				{
+					"name": "filterRows"
+				},
+				{
+					"name": "visaMastercard"
+				},
+				{
+					"name": "NULLfilter"
+				},
+				{
+					"name": "aggregateSum"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          transaction_id as short,",
+				"          transactional_date as timestamp,",
+				"          product_id as string,",
+				"          customer_id as short,",
+				"          payment as string,",
+				"          credit_card as long,",
+				"          loyalty_card as boolean,",
+				"          cost as double,",
+				"          quantity as short,",
+				"          price as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> DFtrasform",
+				"DFtrasform select(mapColumn(",
+				"          transaction_id,",
+				"          transactional_date,",
+				"          product_id,",
+				"          customer_id,",
+				"          payment,",
+				"          credit_card,",
+				"          price",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectColumns",
+				"selectColumns filter(transaction_id>10 && transaction_id<1000) ~> filterRows",
+				"NULLfilter split(payment!='visa' && payment!='mastercard',",
+				"     disjoint: false) ~> visaMastercard@(visaMaster)",
+				"filterRows derive(payment = coalesce(payment,\"N/A\")) ~> NULLfilter",
+				"visaMastercard@visaMaster aggregate(groupBy(customer_id,",
+				"          payment),",
+				"     price = round(sum(price),2)) ~> aggregateSum",
+				"aggregateSum sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> refinedDataa"
+			]
+		}
+	}
+}

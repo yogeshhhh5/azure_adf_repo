@@ -1,0 +1,49 @@
+{
+	"name": "prodPipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute getCSVfiles",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute IngestGithubAPI",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "getCSVfiles",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute IngestGithubAPI",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "IngestGithubAPI",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-03-30T14:54:18Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
