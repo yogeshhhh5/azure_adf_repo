@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "yoadf"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_dupe_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://yoadlsgen2storage.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage1_dupe_properties_typeProperties_url": {
+			"value": "https://yoadlsgen2storage.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"value": "https://yoadlsgen2storage.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "yosqlserver.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "yodatabase"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "yogeshhh5"
+		},
+		"gitHub_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com"
+		},
+		"blobstorageeventCSV_properties_typeProperties_scope": {
+			"value": "/subscriptions/4cf87ecf-0a4d-4d39-8475-40c07a3c4531/resourceGroups/rg_learn/providers/Microsoft.Storage/storageAccounts/yoadlsgen2storage"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
