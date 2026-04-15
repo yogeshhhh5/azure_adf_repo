@@ -27,7 +27,7 @@
 						}
 					},
 					"dataset": {
-						"referenceName": "getLastUpdatedDate",
+						"referenceName": "getCDCJson",
 						"type": "DatasetReference"
 					}
 				}
@@ -226,14 +226,13 @@
 									}
 								},
 								"sink": {
-									"type": "DelimitedTextSink",
+									"type": "JsonSink",
 									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
+										"type": "AzureBlobFSWriteSettings",
+										"copyBehavior": "PreserveHierarchy"
 									},
 									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
+										"type": "JsonWriteSettings"
 									}
 								},
 								"enableStaging": false
@@ -246,7 +245,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "getCSVFilesList",
+									"referenceName": "getCDCJson",
 									"type": "DatasetReference"
 								}
 							]
