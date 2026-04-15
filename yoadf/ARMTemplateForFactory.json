@@ -389,7 +389,7 @@
 											{
 												"type": "Query",
 												"text": {
-													"value": "Select max(last_updated) from @{pipeline().parameters.table}",
+													"value": "Select max(last_updated) as last_update from source.@{pipeline().parameters.table}",
 													"type": "Expression"
 												}
 											}
@@ -423,7 +423,7 @@
 												{
 													"name": "cdc_timestamp",
 													"value": {
-														"value": "@activity('getLastUpdated').output.firstRow.cdc_timestamp",
+														"value": "@activity('getLastUpdated').output.resultSets[0].rows[0].last_update",
 														"type": "Expression"
 													}
 												}
