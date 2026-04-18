@@ -60,7 +60,7 @@
 						{
 							"type": "Query",
 							"text": {
-								"value": "Select count(*) as total_count from source.@{pipeline().parameters.table} Where last_updated > '@{activity('Lookup1').output.firstRow.cdc_timestamp}'",
+								"value": "Select count(*) as total_count from source.@{pipeline().parameters.table} Where last_updated > '@{if(empty(pipeline().parameters.backdate),activity('Lookup1').output.firstRow.cdc_timestamp,pipeline().parameters.backdate)}'",
 								"type": "Expression"
 							}
 						}
@@ -258,6 +258,9 @@
 			"table": {
 				"type": "string",
 				"defaultValue": "Orders"
+			},
+			"backdate": {
+				"type": "string"
 			}
 		},
 		"annotations": []
