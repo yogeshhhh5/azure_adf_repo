@@ -1,0 +1,29 @@
+{
+	"name": "scheduledTrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "databaseToSource",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"table": "Orders",
+					"backdate": "\"\""
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2026-04-18T13:48:00",
+				"endTime": "2026-04-19T13:48:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
