@@ -82,7 +82,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@activity('getCount').output.resultSets[0].rows[0].total_count",
+						"value": "@greater(activity('getCount').output.resultSets[0].rows[0].total_count,0)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
