@@ -1,0 +1,12 @@
+{
+	"name": "PokeAPI",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://pokeapi.co/api/v2/pokemon?limit=20&offset=20",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
