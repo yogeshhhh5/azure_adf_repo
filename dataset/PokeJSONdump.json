@@ -1,0 +1,19 @@
+{
+	"name": "PokeJSONdump",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "dumptable",
+				"fileSystem": "refinedata"
+			}
+		},
+		"schema": {}
+	}
+}

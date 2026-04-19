@@ -1,0 +1,12 @@
+{
+	"name": "PokeREST",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "RestPokeLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
