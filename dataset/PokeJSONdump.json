@@ -10,7 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "dumptable",
+				"fileName": "pokemon.json",
+				"folderPath": "Pokemon",
 				"fileSystem": "refinedata"
 			}
 		},
