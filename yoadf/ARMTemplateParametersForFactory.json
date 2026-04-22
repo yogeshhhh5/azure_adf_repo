@@ -44,6 +44,9 @@
 		"gitHub_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com"
 		},
+		"blobTrigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/4cf87ecf-0a4d-4d39-8475-40c07a3c4531/resourceGroups/rg_learn/providers/Microsoft.Storage/storageAccounts/yoadlsgen2storage"
+		},
 		"blobstorageeventCSV_properties_typeProperties_scope": {
 			"value": "/subscriptions/4cf87ecf-0a4d-4d39-8475-40c07a3c4531/resourceGroups/rg_learn/providers/Microsoft.Storage/storageAccounts/yoadlsgen2storage"
 		},
@@ -52,9 +55,6 @@
 		},
 		"scheduledTrigger_properties_databaseToSource_parameters_backdate": {
 			"value": "\"\""
-		},
-		"blobTrigger_properties_typeProperties_scope": {
-			"value": "/subscriptions/4cf87ecf-0a4d-4d39-8475-40c07a3c4531/resourceGroups/rg_learn/providers/Microsoft.Storage/storageAccounts/yoadlsgen2storage"
 		}
 	}
 }

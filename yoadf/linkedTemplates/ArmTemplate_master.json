@@ -59,6 +59,10 @@
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com"
 		},
+		"blobTrigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/4cf87ecf-0a4d-4d39-8475-40c07a3c4531/resourceGroups/rg_learn/providers/Microsoft.Storage/storageAccounts/yoadlsgen2storage"
+		},
 		"blobstorageeventCSV_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/4cf87ecf-0a4d-4d39-8475-40c07a3c4531/resourceGroups/rg_learn/providers/Microsoft.Storage/storageAccounts/yoadlsgen2storage"
@@ -70,10 +74,6 @@
 		"scheduledTrigger_properties_databaseToSource_parameters_backdate": {
 			"type": "string",
 			"defaultValue": "\"\""
-		},
-		"blobTrigger_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/4cf87ecf-0a4d-4d39-8475-40c07a3c4531/resourceGroups/rg_learn/providers/Microsoft.Storage/storageAccounts/yoadlsgen2storage"
 		},
 		"containerUri": {
 			"type": "string",
@@ -162,14 +162,14 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"blobTrigger_properties_typeProperties_scope": {
+						"value": "[parameters('blobTrigger_properties_typeProperties_scope')]"
+					},
 					"scheduledTrigger_properties_databaseToSource_parameters_table": {
 						"value": "[parameters('scheduledTrigger_properties_databaseToSource_parameters_table')]"
 					},
 					"scheduledTrigger_properties_databaseToSource_parameters_backdate": {
 						"value": "[parameters('scheduledTrigger_properties_databaseToSource_parameters_backdate')]"
-					},
-					"blobTrigger_properties_typeProperties_scope": {
-						"value": "[parameters('blobTrigger_properties_typeProperties_scope')]"
 					}
 				}
 			},
