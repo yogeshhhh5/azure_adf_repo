@@ -35,10 +35,25 @@
 		"AzureSqlDatabase1_properties_typeProperties_userName": {
 			"value": "yogeshhh5"
 		},
+		"PokeAPI_properties_typeProperties_url": {
+			"value": "https://pokeapi.co/api/v2/pokemon?limit=20&offset=20"
+		},
+		"RestPokeLS_properties_typeProperties_url": {
+			"value": "https://pokeapi.co/api/v2/pokemon"
+		},
 		"gitHub_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com"
 		},
 		"blobstorageeventCSV_properties_typeProperties_scope": {
+			"value": "/subscriptions/4cf87ecf-0a4d-4d39-8475-40c07a3c4531/resourceGroups/rg_learn/providers/Microsoft.Storage/storageAccounts/yoadlsgen2storage"
+		},
+		"scheduledTrigger_properties_databaseToSource_parameters_table": {
+			"value": "Orders"
+		},
+		"scheduledTrigger_properties_databaseToSource_parameters_backdate": {
+			"value": "\"\""
+		},
+		"blobTrigger_properties_typeProperties_scope": {
 			"value": "/subscriptions/4cf87ecf-0a4d-4d39-8475-40c07a3c4531/resourceGroups/rg_learn/providers/Microsoft.Storage/storageAccounts/yoadlsgen2storage"
 		},
 		"containerUri": {
