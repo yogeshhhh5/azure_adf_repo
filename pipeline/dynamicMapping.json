@@ -1,0 +1,528 @@
+{
+	"name": "dynamicMapping",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Metadata",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "getFiles",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "ForEachFile",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata').output.childItems",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings",
+										"copyBehavior": "PreserveHierarchy"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"value": "@if(equals(item().name,'customers.csv'),pipeline().parameters.customers,if(equals(item().name,'drivers.csv'),pipeline().parameters.drivers,pipeline().parameters.locations))",
+									"type": "Expression"
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "routingSource",
+									"type": "DatasetReference",
+									"parameters": {
+										"fileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "routingSink",
+									"type": "DatasetReference",
+									"parameters": {
+										"fileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
+										"folder": "dynamicMapping"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"drivers": {
+				"type": "object",
+				"defaultValue": {
+					"type": "TabularTranslator",
+					"mappings": [
+						{
+							"source": {
+								"name": "driver_id",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "driver_id",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "first_name",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "first_name",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "last_name",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "last_name",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "phone_number",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "phone_number",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "vehicle_id",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "vehicle_id",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "driver_rating",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "driver_rating",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "city",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "city",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "last_updated_timestamp",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "last_updated_timestamp",
+								"type": "String",
+								"physicalType": "String"
+							}
+						}
+					],
+					"typeConversion": true,
+					"typeConversionSettings": {
+						"allowDataTruncation": true,
+						"treatBooleanAsNumber": false
+					}
+				}
+			},
+			"locations": {
+				"type": "object",
+				"defaultValue": {
+					"type": "TabularTranslator",
+					"mappings": [
+						{
+							"source": {
+								"name": "location_id",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "location_id",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "city",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "city",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "state",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "state",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "country",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "country",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "latitude",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "latitude",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "longitude",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "longitude",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "last_updated_timestamp",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "last_updated_timestamp",
+								"type": "String",
+								"physicalType": "String"
+							}
+						}
+					],
+					"typeConversion": true,
+					"typeConversionSettings": {
+						"allowDataTruncation": true,
+						"treatBooleanAsNumber": false
+					}
+				}
+			},
+			"customers": {
+				"type": "object",
+				"defaultValue": {
+					"type": "TabularTranslator",
+					"mappings": [
+						{
+							"source": {
+								"name": "customer_id",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "customer_id",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "first_name",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "first_name",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "last_name",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "last_name",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "email",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "email",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "phone_number",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "phone_number",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "city",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "city",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "signup_date",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "signup_date",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "last_updated_timestamp",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "last_updated_timestamp",
+								"type": "String",
+								"physicalType": "String"
+							}
+						}
+					],
+					"typeConversion": true,
+					"typeConversionSettings": {
+						"allowDataTruncation": true,
+						"treatBooleanAsNumber": false
+					}
+				}
+			},
+			"demo": {
+				"type": "object",
+				"defaultValue": {
+					"type": "TabularTranslator",
+					"mappings": [
+						{
+							"source": {
+								"name": "user_id",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "user_id",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "name",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "name",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "city",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "city",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "order_id",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "order_id",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "amount",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "amount",
+								"type": "String",
+								"physicalType": "String"
+							}
+						},
+						{
+							"source": {
+								"name": "updated_ts\r",
+								"type": "String",
+								"physicalType": "String"
+							},
+							"sink": {
+								"name": "updated_ts\r",
+								"type": "String",
+								"physicalType": "String"
+							}
+						}
+					],
+					"typeConversion": true,
+					"typeConversionSettings": {
+						"allowDataTruncation": true,
+						"treatBooleanAsNumber": false
+					}
+				}
+			}
+		},
+		"annotations": []
+	}
+}
